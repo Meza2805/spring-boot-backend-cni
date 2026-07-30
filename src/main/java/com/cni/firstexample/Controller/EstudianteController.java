@@ -2,8 +2,7 @@ package com.cni.firstexample.Controller;
 
 import java.util.List;
 
-
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +12,7 @@ import com.cni.firstexample.Model.Estudiante;
 @RequestMapping("/api/v1/estudiantes")
 public class EstudianteController {
 
-    // GET http://localhost:8081/api/v1/estudiantes
+    //GET http://localhost:8081/api/v1/estudiantes
     @GetMapping
     public List<Estudiante> obtenerTodos() {
         return List.of(
@@ -26,16 +25,16 @@ public class EstudianteController {
         );
     }
 
-    // GET http://localhost:8081/api/v1/estudiantes/1
-    @GetMapping("/{id}")
-    public Estudiante obtenerPorId(@PathVariable Long id) {
-        if (id == 15)
-        {
-            return new Estudiante(id, "Estudiante Encontrado", "Computación", 20);
-        }
-        else
-        {
-            return new Estudiante(id, "Estudiante No Encontrado", "N/A", 0);
-        }
-    }
+    //GET http://localhost:8081/api/v1/estudiantes/1
+    // @GetMapping("/{id}")
+    // public Estudiante obtenerPorId(@PathVariable Long id) {
+    //     if (id == 15)
+    //     {
+    //         return new Estudiante(id, "Estudiante Encontrado", "Computación", 20);
+    //     }
+    //     else
+    //     {
+    //         return new Estudiante(id, "Estudiante No Encontrado", "N/A", 0);
+    //     }
+    // }
 }
