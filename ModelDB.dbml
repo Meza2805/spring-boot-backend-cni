@@ -1,0 +1,15 @@
+Table profesor{
+  id integer [primary key]
+  nombre varchar
+  especialidad varchar
+  telefono varchar
+  createdat timestamp
+}
+
+Table curso{
+  id integer [primary key]
+  nombre varchar
+  profesor_id integer [not null]
+}
+
+Ref profesor_curso: curso.profesor_id ?> profesor.id
