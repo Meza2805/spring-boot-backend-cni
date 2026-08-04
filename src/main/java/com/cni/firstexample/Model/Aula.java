@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "aula")
-public class Aula {
+public class Aula extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
