@@ -10,11 +10,12 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "profesor")
 public class Profesor extends Auditable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-@Column(name = "nombre_completo", nullable = false, length = 100)
+    @Column(name = "nombre_completo", nullable = false, length = 100)
     private String nombre;
 
     @Column(name = "especialidad", length = 100)
@@ -23,9 +24,11 @@ public class Profesor extends Auditable {
     @Column(name = "telefono", length = 20)
     private String telefono;
 
+    // Constructor vacío (requerido por JPA)
     public Profesor() {
     }
 
+    // Constructor con parámetros
     public Profesor(String nombre, String especialidad, String telefono) {
         this.nombre = nombre;
         this.especialidad = especialidad;
