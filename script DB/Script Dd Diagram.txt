@@ -1,0 +1,113 @@
+// --- CATÁLOGOS ---
+
+Table Centros {
+  id_centro integer [primary key, increment]
+  nombre_centro varchar [not null] // Ej: UNAN-Managua, INATEC
+}
+
+Table Facultades {
+  id_facultad integer [primary key, increment]
+  id_centro integer
+  nombre_facultad varchar [not null] // O Área de Conocimiento
+}
+
+Table Carreras {
+  id_carrera integer [primary key, increment]
+  id_facultad integer
+  nombre_carrera varchar [not null]
+}
+
+Table Turnos {
+  id_turno integer [primary key, increment]
+  nombre_turno varchar [unique, not null]
+}
+
+Table Anios_Lectivos {
+  id_anio integer [primary key, increment]
+  etiqueta varchar [unique, not null]
+  activo boolean [default: true]
+}
+
+Table Asignaturas {
+  id_asignatura integer [primary key, increment]
+  nombre_asignatura varchar [not null]
+}
+
+// --- PERSONAS ---
+
+Table Estudiantes {
+  id_estudiante integer [primary key, increment]
+  p_nombre varchar [not null]
+  s_nombre varchar
+  p_apellido varchar [not null]
+  s_apellido varchar
+  sexo char(1)
+  telefono varchar
+  direccion text
+}
+
+Table Identidades_Academicas {
+  id_identidad integer [primary key, increment]
+  id_estudiante integer
+  id_centro integer
+  carnet_codigo varchar [not null]
+}
+
+// --- ESTRUCTURA ACADÉMICA ---
+
+Table Grupos {
+  id_group integer [primary key, increment]
+  id_carrera integer // Conectamos con la carrera (que ya sabe su facultad y centro)
+  nombre_grupo varchar
+  id_turno integer
+  id_anio integer
+}
+
+Table Horarios {
+  id_horario integer [primary key, increment]
+  id_grupo integer
+  id_asignatura integer
+  dia_semana varchar
+  hora_inicio time
+  hora_fin time
+  aula varchar
+}
+
+Table Inscripciones {
+  id_inscripcion integer [primary key, increment]
+  id_estudiante integer
+  id_grupo integer
+  fecha_inscripcion date
+}
+
+// --- REGISTROS ---
+
+Table Asistencia {
+  id_asistencia integer [primary key, increment]
+  id_estudiante integer
+  id_horario integer 
+  fecha date
+  estado varchar
+  observaciones text
+}
+
+// --- RELACIONES ---
+
+Ref: Facultades.id_centro > Centros.id_centro
+Ref: Carreras.id_facultad > Facultades.id_facultad
+
+Ref: Identidades_Academicas.id_estudiante > Estudiantes.id_estudiante
+Ref: Identidades_Academicas.id_centro > Centros.id_centro
+
+Ref: Grupos.id_carrera > Carreras.id_carrera
+Ref: Grupos.id_turno > Turnos.id_turno
+Ref: Grupos.id_anio > Anios_Lectivos.id_anio
+
+Ref: Horarios.id_grupo > Grupos.id_group
+Ref: Horarios.id_asignatura > Asignaturas.id_asignatura
+
+Ref: Inscripciones.id_estudiante > Estudiantes.id_estudiante
+Ref: Inscripciones.id_grupo > Grupos.id_group
+
+Ref: Asistencia.id_estudiante > Estudiantes.id_estudiante
+Ref: Asistencia.id_horario > Horarios.id_horario
